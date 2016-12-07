@@ -10,7 +10,7 @@ $('#submitButton').on('click', function (e) {
 
     e.preventDefault();
 
-    $.ajax('http://localhost:53460/memory/save', {
+    $.ajax('/memory/save', {
         contentType: "application/json",
         method: "POST",
         data: JSON.stringify({Name: $name.val(), Comment: $comment.val()})
