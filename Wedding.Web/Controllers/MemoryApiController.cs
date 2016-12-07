@@ -2,6 +2,8 @@
 using System.Web.Http;
 using Wedding.Web.Models.Memory;
 using Wedding.Data.Repositories;
+using Wedding.Data.Entities;
+using System.Threading.Tasks;
 
 namespace Wedding.Web.Controllers
 {
@@ -10,27 +12,23 @@ namespace Wedding.Web.Controllers
     {
         private IMemoryRepository memoryRepository;
 
-
-        //public MemoryApiController(IMemoryRepository memoryRepository)
-        //{
-        //    this.memoryRepository = memoryRepository;
-        //}
+        public MemoryApiController()
+        {
+            memoryRepository = new MemoryRepository();
+        }
 
         [Route("save")]
         [HttpPost]
-        public IHttpActionResult SaveMemory(MemorySaveRequest request)
+        public async Task<IHttpActionResult> SaveMemory(MemorySaveRequest request)
         {
-            // TODO: upload the image to our blob server
-            // TODO: update model with the URL for the image blob that we get back from saving to the blob server.
-            // If image save fails, return an error response
-            // else if successful then save the memory to our DB via entity framework
-            // along with the URL to our image.
-            var memoryEntity = new
+            var memoryEntity = new Memory
             {
-                Comment = request.Comment
+                Comment = request.Comment,
+                IsLanceSick = request.IsLanceSick,
+                Name = request.Name
             };
-
-            //memoryRepository.Insert(memoryEntity);
+            
+            await memoryRepository.Insert(memoryEntity);
             
             return Ok();
         }

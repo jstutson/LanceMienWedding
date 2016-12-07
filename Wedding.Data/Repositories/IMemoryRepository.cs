@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wedding.Data.Entities;
 
 namespace Wedding.Data.Repositories
 {
     public interface IMemoryRepository
     {
-        object Get(int id);
+        Task<Memory> Get(int id);
 
-        void Insert(object memory);
+        Task Insert(Memory memory);
 
-        void Update(object memory);
+        Task Update(Memory memory);
 
-        void Delete(int id);
+        Task Delete(int id);
     }
 }
