@@ -3,27 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wedding.Data.Entities;
 
 namespace Wedding.Data.Repositories
 {
     public class MemoryRepository : IMemoryRepository
     {
-        public void Delete(int id)
+        public Task Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public object Get(int id)
+        public Task<Memory> Get(int id)
         {
+            
             throw new NotImplementedException();
         }
 
-        public void Insert(object memory)
+        public async Task Insert(Memory memory)
         {
-            throw new NotImplementedException();
+            using(var context = new LanceWeddingEntities())
+            {
+                context.Memories.Add(memory);
+                await context.SaveChangesAsync();
+            }
         }
 
-        public void Update(object memory)
+        public Task Update(Memory memory)
         {
             throw new NotImplementedException();
         }
